@@ -1,6 +1,7 @@
 import flet as ft
 from UI.alert import AlertManager
 
+
 '''
     VIEW:
     - Rappresenta l'interfaccia utente
@@ -65,6 +66,12 @@ class View:
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
         # TODO
 
+        self.mostra=ft.ElevatedButton("Mostra", on_click=self.controller.mostra)
+
+        self.cerca=ft.ElevatedButton("Cerca", on_click=self.controller.cerca)
+
+        self.page.update()
+
         # --- LAYOUT ---
         self.page.add(
             self.toggle_cambia_tema,
@@ -83,10 +90,28 @@ class View:
 
             # Sezione 3
             # TODO
+            ft.Row(
+                controls=[ft.Text("Automobili", size=19), self.mostra],
+                alignment=ft.MainAxisAlignment.START,
+                spacing=15,
+            ),
+            ft.Container(height=120, content=self.lista_auto),
+            ft.Divider(),
 
             # Sezione 4
             # TODO
+            ft.Text("Cerca Automobile", size=20, text_align=ft.TextAlign.CENTER),
+            ft.Row(
+                controls=[self.input_modello_auto, self.cerca],
+                alignment=ft.MainAxisAlignment.START,
+                spacing=15,
+            ),
+            ft.Container(height=180, content=self.lista_auto_ricerca),
         )
+
+        self.page.update()
+
+
 
     def cambia_tema(self, e):
         self.page.theme_mode = ft.ThemeMode.DARK if self.toggle_cambia_tema.value else ft.ThemeMode.LIGHT
